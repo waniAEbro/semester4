@@ -19,6 +19,16 @@ const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 
+const client = new Client({
+    args: [
+        '--no-sandbox'
+    ],
+    authStrategy: new LocalAuth(),
+    puppeteer: {
+        headless: true
+    }
+});
+
 const checkRegisteredNumber = async function (number) {
     const isRegistered = await client.isRegisteredUser(number);
     return isRegistered;
@@ -35,15 +45,6 @@ app.get("/", (req, res) => {
     });
 });
 
-const client = new Client({
-    args: [
-        '--no-sandbox'
-    ],
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        headless: true
-    }
-});
 
 app.post("/send", [body("number").notEmpty(), body("message").notEmpty()], async (req, res) => {
     let number = req.body.number;
