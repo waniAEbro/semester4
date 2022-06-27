@@ -13,6 +13,9 @@
   "name": "olshop-pkm",
   "version": "1.0.0",
   "description": "olshop buat pkm",
+  "engines": {
+    "node": "16.14.2"
+  },
   "main": "app.js",
   "scripts": {
     "start": "node app",
