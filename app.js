@@ -35,6 +35,16 @@ app.get("/", (req, res) => {
     });
 });
 
+const client = new Client({
+    args: [
+        '--no-sandbox'
+    ],
+    authStrategy: new LocalAuth(),
+    puppeteer: {
+        headless: true
+    }
+});
+
 app.post("/send", [body("number").notEmpty(), body("message").notEmpty()], async (req, res) => {
     let number = req.body.number;
     let message = req.body.message;
@@ -78,15 +88,6 @@ app.post("/send", [body("number").notEmpty(), body("message").notEmpty()], async
     });
 })
 
-const client = new Client({
-    args: [
-        '--no-sandbox'
-    ],
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        headless: true
-    }
-});
 
 client.initialize();
 
