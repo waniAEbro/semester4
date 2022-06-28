@@ -11,9 +11,6 @@ const {
     body,
     validationResult
 } = require("express-validator");
-const {
-    errors
-} = require('puppeteer');
 
 const app = express();
 const server = http.createServer(app);
