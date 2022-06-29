@@ -20,7 +20,7 @@ const io = socket(server);
 const client = new Client({
     args: [
         '--no-sandbox',
-        '--disable-setuid-sandbox',
+        '--disable-setupid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
         '--no-first-run',
