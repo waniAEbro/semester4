@@ -5,6 +5,7 @@ const {
 
 const express = require("express");
 const qrcode = require('qrcode');
+const qrcodeterminal = require("qrcode-terminal");
 const http = require("http");
 const socket = require("socket.io");
 const {
@@ -22,6 +23,17 @@ const client = new Client({
     puppeteer: {
         headless: true
     }
+});
+
+client.on('qr', (qr) => {
+    console.log(qr);
+    qrcodeterminal.generate(qr, {
+        small: true
+    });
+    // qrcode.toDataURL(qr, (err, url) => {
+    //     socket.emit("qr", url);
+    //     socket.emit("message", "silakan scan QR Code");
+    // });
 });
 
 const checkRegisteredNumber = async function (number) {
