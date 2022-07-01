@@ -50,6 +50,10 @@ app.post("/send", (req, res) => {
     let message = req.body.message;
 
     client.sendMessage(number, message);
+
+    res.status(200).json({
+        message: true
+    });
 });
 
 app.post("/sendList", (req, res) => {
@@ -59,6 +63,10 @@ app.post("/sendList", (req, res) => {
     let list = new List('List body', 'btnText', message, 'Title', 'footer');
 
     client.sendMessage(number, list);
+
+    res.status(200).json({
+        message: true
+    });
 });
 
 client.initialize();
