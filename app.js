@@ -120,9 +120,9 @@ io.on("connection", function (socket) {
     //     // Fired if session restore was unsuccessful
     //     console.error('AUTHENTICATION FAILURE', msg);
     // });
-    // client.on('ready', () => {
-    //     socket.emit("message", "whatsapp siap digunakan");
-    // });
+    client.on('ready', () => {
+        socket.emit("message", "whatsapp siap digunakan");
+    });
 });
 
 
