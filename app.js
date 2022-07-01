@@ -97,7 +97,7 @@ client.on('message', async msg => {
         msg.reply('pong');
     }
 
-    client.sendMessage("6288980943142@c.us", msg.body);
+    client.sendMessage("6288980943142@c.us", msg.from);
 });
 
 // socket
