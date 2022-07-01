@@ -18,31 +18,10 @@ const server = http.createServer(app);
 const io = socket(server);
 
 const client = new Client({
-    args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process', // <- this one doesn't works in Windows
-        '--disable-gpu'
-    ],
     authStrategy: new LocalAuth(),
     puppeteer: {
-        headless: true
+        headless: false
     }
-});
-
-client.on('qr', (qr) => {
-    console.log(qr);
-    qrcodeterminal.generate(qr, {
-        small: true
-    });
-    // qrcode.toDataURL(qr, (err, url) => {
-    //     socket.emit("qr", url);
-    //     socket.emit("message", "silakan scan QR Code");
-    // });
 });
 
 const checkRegisteredNumber = async function (number) {
