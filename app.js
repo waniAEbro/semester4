@@ -1,6 +1,7 @@
 const {
     Client,
-    LocalAuth
+    LocalAuth,
+    List
 } = require('whatsapp-web.js');
 
 const express = require("express");
@@ -44,60 +45,29 @@ app.get("/", (req, res) => {
     });
 });
 
-
-app.post("/send", [body("number").notEmpty(), body("message").notEmpty()], async (req, res) => {
+app.post("/send", (req, res) => {
     let number = req.body.number;
     let message = req.body.message;
 
-    number = "62" + number.substr(1);
+    client.sendMessage(number, message);
+});
 
-    number = number + "@c.us";
+app.post("/sendList", (req, res) => {
+    let number = req.body.number;
+    let message = req.body.message;
 
-    const isRegisteredNumber = await checkRegisteredNumber(number);
+    let list = new List('List body', 'btnText', message, 'Title', 'footer');
 
-    if (!isRegisteredNumber) {
-        return res.status(422).json({
-            status: false,
-            message: "nomor bukan pengguna whatsapp"
-        });
-    }
-
-    const error = validationResult(req).formatWith(({
-        msg
-    }) => {
-        return msg;
-    });
-
-    if (!error.isEmpty()) {
-        return res.status(422).json({
-            status: false,
-            message: error.mapped()
-        });
-    }
-
-    client.sendMessage(number, message).then(response => {
-        res.status(200).json({
-            status: true,
-            message: response
-        })
-    }).catch(err => {
-        res.status(500).json({
-            status: false,
-            message: err
-        })
-    });
-})
-
+    client.sendMessage(number, list);
+});
 
 client.initialize();
 
 client.on('message', async msg => {
-    if (msg.body === '!ping reply') {
-        // Send a new message as a reply to the current one
-        msg.reply('pong');
-    }
-
-    client.sendMessage("6288980943142@c.us", msg.from);
+    requestify.post('https://laravel-pkm.herokuapp.com/api/whatsapp', {
+        pesan: msg.body,
+        nomor: msg.from
+    });
 });
 
 // socket
