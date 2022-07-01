@@ -1,7 +1,8 @@
 const {
     Client,
     LocalAuth,
-    List
+    List,
+    Buttons
 } = require('whatsapp-web.js');
 
 const express = require("express");
@@ -56,11 +57,14 @@ app.post("/send", (req, res) => {
     });
 });
 
+
 app.post("/sendList", (req, res) => {
     let number = req.body.number;
     let message = req.body.message;
+    let title = req.body.title;
+    let body = req.body.body;
 
-    let list = new List('List body', 'btnText', message, 'Title', 'footer');
+    let list = new List(body, 'btnText', message, title, 'footer');
 
     client.sendMessage(number, list);
 
