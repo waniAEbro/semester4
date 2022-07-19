@@ -65,7 +65,7 @@ app.post("/sendList", (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
 
-    let list = new List(body, 'btnText', message, title, 'footer');
+    let list = new List(body, 'List', message, title, 'footer');
 
     client.sendMessage(number, list);
 
