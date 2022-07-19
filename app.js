@@ -77,7 +77,7 @@ app.post("/sendList", (req, res) => {
 client.initialize();
 
 client.on('message', async msg => {
-    requestify.post('https://laravel-pkm.herokuapp.com/api/whatsapp', {
+    requestify.post('https://rumahkompetisi.skom.id/api/whatsapp', {
         pesan: msg.body,
         nomor: msg.from
     });
