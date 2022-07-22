@@ -41,6 +41,12 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.get("/", (req, res) => {
+    res.sendFile("index.html", {
+        root: __dirname
+    });
+});
+
 app.get("/whatsapp", (req, res) => {
     res.sendFile("index.html", {
         root: __dirname
