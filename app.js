@@ -41,13 +41,13 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-app.get("/", (req, res) => {
+app.get("/whatsapp", (req, res) => {
     res.sendFile("index.html", {
         root: __dirname
     });
 });
 
-app.post("/send", (req, res) => {
+app.post("/whatsapp/send", (req, res) => {
     let number = req.body.number;
     let message = req.body.message;
 
@@ -59,7 +59,7 @@ app.post("/send", (req, res) => {
 });
 
 
-app.post("/sendList", (req, res) => {
+app.post("/whatsapp/sendList", (req, res) => {
     let number = req.body.number;
     let message = req.body.message;
     let title = req.body.title;
